@@ -4,7 +4,8 @@ const bp = require('body-parser');
 const cp = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config()
+require('dotenv').config();
+const authRoutes = require('./routes/auth');
 
 
 // app
@@ -28,6 +29,8 @@ if(process.env.NODE_ENV === 'development') {
 app.get('/api', (req,res)=> {
     res.json({time: Date().toString()})
 });
+
+app.get('/api', authRoutes);
 
 // middlewares
 
