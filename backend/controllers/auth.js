@@ -60,7 +60,17 @@ exports.signin = (req,res) => {
         user
       });
     })
-    
-
-    
 }
+
+exports.signout = (req,res) => {
+  res.clearCookie("token")
+  res.json({
+    message: 'Signout Success'
+  })
+}
+
+exports.requireSignin = ejwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"], // added later
+  userProperty: "auth"
+});
