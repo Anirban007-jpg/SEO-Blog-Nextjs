@@ -1,10 +1,11 @@
 //import Header from "./Header";
+import SignupComponent from "../components/auth/SignupComponent";
 import Layout from "../components/Layout";
 
 const Signup = () => {
     return (
         <Layout>
-            <h2>Signup page</h2>
+            <SignupComponent />
         </Layout>
     );
 };
