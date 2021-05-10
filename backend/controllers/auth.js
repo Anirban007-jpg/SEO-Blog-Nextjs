@@ -13,11 +13,11 @@ exports.signup = (req,res) => {
         })
       }
 
-      const {name,email,about,address,mobile_no,password} = req.body;
+      const {name,email,about,address,mobile_no,password,role} = req.body;
       let username = sid.generate();
       let profile = `${process.env.CLIENT_URL}/profile/${username}`;
 
-      let newUser = new User({name,email,about,address,mobile_no,password,username,profile});
+      let newUser = new User({name,email,about,address,mobile_no,password,username,profile,role});
       newUser.save((err, success) => {
         if (err){
           return res.status(400).json({
@@ -26,7 +26,7 @@ exports.signup = (req,res) => {
         }
 
         res.json({
-          message: "Signup Success, Please Signin"
+          message: "Signup Success! Please Signin"
         });
       });
     })

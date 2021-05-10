@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { signup } from "../../actions/auth";
 
 const SignupComponent = () => {
 
@@ -13,21 +14,41 @@ const SignupComponent = () => {
         loading: false,
         message: '',
         error: '',
+        role: -1,
         showForm: true
     }); 
 
-    const {name,email,address,length,about,mobile_no,password,loading,message,error,showForm} = values;
+    const {name,email,address,length,about,mobile_no,password,role,loading,message,error,showForm} = values;
 
     const handleChange = (name) => e => {
-        setValues({...values, error: '', [name]: e.target.value});
+        if (name !== 'role'){ 
+             setValues({...values, error: '', [name]: e.target.value});
+        }else{
+            var r = parseInt(e.target.value);
+            setValues({...values, role: r});
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setValues({...values, loading: true, error:''});
+        const user = {name,email,address,length,about,mobile_no,password,role};
+        signup(user)
+        .then(data =>{
+            if(data.error){
+                setValues({...values, error: data.error, loading:false});
+            }else {
+                setValues({...values, name: '',email: '',address: '',length: 400,about: '',mobile_no: '',role: -1, password: '',loading: false,message: data.message,error: '',showForm: false});
+            }
+        })
+         
+
     }
 
-    // 
-    // disable={length-about.length !== 0}
+    const showLoaing = () => loading ? <div className="Jumbotron">Loading..</div> : '';
+    const showError = () => error ? <div className="alert alert-danger">{error}</div> : '';
+    const showMessage = () => message ? <div className="alert alert-success">{message}</div> : '';
+
     const signupForm = () => {
         return (
             <form className="mr-5 ml-5 pt-2 pl-3 pr-3" style={{border: '3px solid black', borderRadius: '10px'}} onSubmit={handleSubmit} noValidate>
@@ -57,10 +78,20 @@ const SignupComponent = () => {
                     <input value={mobile_no} type="text" className="form-control" placeholder="Enter your mobile number to be registered..." onChange={handleChange('mobile_no')} />
                 </div>
                 <div className="form-group">
+                    <label>Role</label>
+                    <br/>
+                    <select value={role} type="Number" className="form-control" placeholder="Enter your role..." onChange={handleChange('role')}>
+                        <option value=''>Select Role</option>
+                        <option value='0'>Blogger</option>
+                        <option value='1'>Admin-Blogger</option>
+                    </select>
+                </div>
+                <div className="form-group">
                     <label>Password</label>
                     <br/>
                     <input value={password} type="password" className="form-control" placeholder="Enter your Password..." onChange={handleChange('password')} />
                 </div><hr />
+
                 <div className="pd-3">
                     <button className="btn btn-success">REGISTER</button>
                 </div><br/>
@@ -70,7 +101,13 @@ const SignupComponent = () => {
 
     return (
         <React.Fragment>
-            {signupForm()}
+            <br/>
+            {showError()}
+            {showMessage()}
+            {showLoaing()}
+            <br/>
+            
+            {showForm && signupForm()}
         </React.Fragment>
     )
 }
