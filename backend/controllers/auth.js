@@ -2,6 +2,8 @@ const User = require('../models/user');
 const fo = require('formidable');
 const fs = require('fs');
 const sid = require('shortid');
+const jwt = require('jsonwebtoken');
+const ejwt = require('express-jwt');
 
 exports.signup = (req,res) => {
     User.findOne({email: req.body.email}).exec((err,user) => {
@@ -28,4 +30,37 @@ exports.signup = (req,res) => {
         });
       });
     })
+}
+
+exports.signin = (req,res) => {
+    
+    const {email,password} = req.body;
+    // check if user exsists
+    User.findOne({email}).exec((err,user) => {
+      if (err || !user){
+        return res.status(400).json({
+          error: "User with this email does not exsist in Database"
+        });
+      }
+      // authenticate
+      if (!user.authenticate(password)) {
+        return res.status(400).json({
+          error: "Password does not match"
+        });
+      }
+
+      // generate a jsonweb token and send it to client
+      const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+
+      res.cookie('token', token, {expiresIn: '1d'});
+
+      const {_id,name,email,about,address,mobile_no,username,role} = user;
+      return res.json({
+        token,
+        user
+      });
+    })
+    
+
+    
 }
