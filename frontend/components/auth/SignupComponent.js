@@ -101,12 +101,10 @@ const SignupComponent = () => {
 
     return (
         <React.Fragment>
-            <br/>
             {showError()}
             {showMessage()}
             {showLoaing()}
             <br/>
-            
             {showForm && signupForm()}
         </React.Fragment>
     )
