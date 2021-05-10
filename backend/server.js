@@ -5,6 +5,9 @@ const cp = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
+
+
+// bring in routes
 const authRoutes = require('./routes/auth');
 
 
@@ -26,11 +29,10 @@ if(process.env.NODE_ENV === 'development') {
 
 
 // routes
-app.get('/api', (req,res)=> {
-    res.json({time: Date().toString()})
-});
 
-app.get('/api', authRoutes);
+
+
+app.use('/api', authRoutes);
 
 // middlewares
 

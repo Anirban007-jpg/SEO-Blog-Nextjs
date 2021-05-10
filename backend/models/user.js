@@ -42,6 +42,12 @@ const userSchema = new mongoose.Schema({
     resetPasswordLink: {
         data: String,
         default: ""
+    },
+    address: {
+        type: String
+    },
+    mobile_no: {
+        type: String
     }
 }, {timestamp: true})
 
