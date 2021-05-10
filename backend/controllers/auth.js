@@ -5,6 +5,8 @@ const sid = require('shortid');
 const jwt = require('jsonwebtoken');
 const ejwt = require('express-jwt');
 
+
+
 exports.signup = (req,res) => {
     User.findOne({email: req.body.email}).exec((err,user) => {
       if (user){
@@ -74,3 +76,61 @@ exports.requireSignin = ejwt({
   algorithms: ["HS256"], // added later
   userProperty: "auth"
 });
+
+exports.authMiddleware = (req,res,next) => {
+   const authUserId = req.auth._id;
+   User.findById({_id: authUserId}).exec((err,user) => {
+     if (err || !user){
+      return res.status(400).json({
+        error: "User already exsists"
+      })
+     }
+
+     if (user.role !== 0 || user.role === 1 || user.role === 2){
+      return res.status(400).json({
+        error: "Customer Resource ! Access Denied"
+      })
+    }
+
+     req.profile = user;
+     next();
+   })
+}
+
+exports.adminMiddleware = (req,res,next) => {
+  const adminUserId = req.auth._id;
+  User.findById({_id: adminUserId}).exec((err,user) => {
+    if (err || !user){
+     return res.status(400).json({
+       error: "User already exsists"
+     })
+    }
+    if (user.role !== 1 || user.role === 0 || user.role === 2){
+      return res.status(400).json({
+        error: "Admin Resource ! Access Denied"
+      })
+    }
+
+    req.profile = user;
+    next();
+  })
+}
+
+exports.superadminMiddleware = (req,res,next) => {
+  const superadminUserId = req.auth._id;
+  User.findById({_id: superadminUserId}).exec((err,user) => {
+    if (err || !user){
+     return res.status(400).json({
+       error: "User already exsists"
+     })
+    }
+    if (user.role !== 2 || user.role === 1 || user.role === 0){
+      return res.status(400).json({
+        error: "Super Admin Resource ! Access Denied"
+      })
+    }
+
+    req.profile = user;
+    next();
+  })
+}
