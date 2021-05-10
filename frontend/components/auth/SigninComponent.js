@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { authenticate, signin } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { authenticate, isAuth, signin } from "../../actions/auth";
 import Router from 'next/router';
 
 const SigninComponent = () => {
@@ -14,6 +14,10 @@ const SigninComponent = () => {
     }); 
 
     const {email,password,loading,message,error,showForm} = values;
+
+    useEffect(() => {
+        isAuth() &&  Router.push('/')
+    }, [])
 
     const handleChange = (name) => e => {
              setValues({...values, error: '', [name]: e.target.value});  

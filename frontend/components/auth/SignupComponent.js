@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { signup } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { isAuth, signup } from "../../actions/auth";
+import Router from 'next/router';
 
 const SignupComponent = () => {
 
@@ -19,6 +20,10 @@ const SignupComponent = () => {
     }); 
 
     const {name,email,address,length,about,mobile_no,password,role,loading,message,error,showForm} = values;
+
+    useEffect(() => {
+        isAuth() &&  Router.push('/')
+    }, [])
 
     const handleChange = (name) => e => {
         if (name !== 'role'){ 
