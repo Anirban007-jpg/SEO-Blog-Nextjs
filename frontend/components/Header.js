@@ -12,6 +12,12 @@ import {
 import { API_NAME } from '../config';
 import Router from 'next/router';
 import { isAuth, signout } from '../actions/auth';
+import nProgress from 'nprogress';
+import "../node_modules/nprogress/nprogress.css";
+
+Router.onRouteChangeStart = url => nProgress.start();
+Router.onRouteChangeComplete = url => nProgress.done();
+Router.onRouteChangeError = url => nProgress.done();
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +29,9 @@ const Header = () => {
   return (
     <div>
       <Navbar color="light" light expand="md">
+      <Link href="/">
+            <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
+      </Link> 
         {isAuth() && isAuth().role === 0 && (
           <>
             <Link href="/user">
