@@ -16,10 +16,11 @@ const AdminIndex = () => {
         <Layout>
                 <div className="container-fluid">
                     <div className="row mr-5 ml-5">
-                        <div className="col-md-12 pt-5 pb-5">
+                        <div className="col-md-12 pt-5 pb-5 text-center">
                             <h2>Create Categories and tags</h2>
                         </div>
                         <div className="col-md-4">
+                            <h2>Create Categories</h2><hr/>
                             <Category />
                         </div>
                         <div className="col-md-8">

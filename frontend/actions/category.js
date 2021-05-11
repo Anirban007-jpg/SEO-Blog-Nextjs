@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import cookie from 'js-cookie';
 import { API } from '../config';
 
 export const create = (category, token) => {
@@ -11,6 +10,42 @@ export const create = (category, token) => {
             Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(category)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const list = () => {
+    return fetch(`${API}/categories`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const singleCategory = (slug) => {
+    return fetch(`${API}/category/${slug}`, {
+        method: 'GET'
+
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const removeCategory = (slug, token) => {
+    return fetch(`${API}/category/${slug}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();
