@@ -3,6 +3,7 @@ import { isAuth } from '../../../actions/auth';
 import router from 'next/router';
 import Link from 'next/link';
 import Category from '../../../components/crud/Category';
+import Tag from '../../../components/crud/Tag';
 
 const AdminIndex = () => {
     
@@ -19,12 +20,13 @@ const AdminIndex = () => {
                         <div className="col-md-12 pt-5 pb-5 text-center">
                             <h2>Create Categories and tags</h2>
                         </div>
-                        <div className="col-md-4">
-                            <h2>Create Categories</h2><hr/>
+                        <div className="col-md-6">
+                            <h2>Manage Categories</h2><hr/>
                             <Category />
                         </div>
-                        <div className="col-md-8">
-                            <p>Tags</p>
+                        <div className="col-md-6">
+                            <h2>Manage Tags</h2><hr/>
+                            <Tag />
                         </div>
                     </div>                
                 </div>
