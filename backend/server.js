@@ -36,8 +36,30 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', tagRoutes);
-
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError'){
+        res.status(401).json({
+            error: "Unauthorized!"
+        });
+    }
+});
 // middlewares
+
+// apiDocs
+
+
+// app.get('/', (req,res) => {
+//     fs.readFile('apiDocs/docs.json', (err, data) => {
+//         if (err) {
+//             res.status(400).json({
+//                 error: err
+//             })
+//         }
+
+//         const docs = JSON.parse(data);
+//         res.json(docs);
+//     })
+// })
 
 
 // handle port
