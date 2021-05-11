@@ -54,7 +54,8 @@ exports.create = (req,res) => {
         blog.mdescription = sh(body.substring(0,160));
         blog.postedBy = req.auth._id
         // categories and tags
-        
+        let arrayofCategories = categories && categories.split(',')
+        let arrayofTags = tags && tags.split(',')
         if (files.photo){
             if (files.photo.size > 10000000){
                 return res.status(400).json({
@@ -70,7 +71,25 @@ exports.create = (req,res) => {
                     error: err
                 })
             }
-            res.json(result);
+            // res.json(result);
+            Blog.findByIdAndUpdate(result._id, {$push: {categories: arrayofCategories}}, {new:true}).exec((err,result) => {
+                if (err){
+                    return res.status(400).json({
+                        error: err
+                    })
+                }else{
+                    Blog.findByIdAndUpdate(result._id, {$push: {tags: arrayofTags}}, {new:true}).exec((err,result) => {
+                        if (err){
+                            return res.status(400).json({
+                                error: err
+                            }) 
+                        }else{
+                            res.json(result);
+                        }
+                    })
+                }
+                
+            })
         })
 
     })
