@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getCookie } from "../../actions/auth";
-import { createTag } from "../../actions/tag";
+import { createTag, listTags, removeTag } from "../../actions/tag";
 
 
 const Tag = () => {
@@ -9,38 +9,38 @@ const Tag = () => {
         error:'',
         success:'',
         success2:false,
-        catagories: [],
+        tags: [],
         removed: false,
-        reload: false
+        reload: false,
     })
 
 
 
-    const {name,error,success,catagories,removed,reload,success2} = values;
+    const {name,error,success,tags,removed,reload,success2} = values;
     const token = getCookie('token');
 
-    // useEffect(() => {
-    //     loadTags();
-    // }, [reload]);
+    useEffect(() => {
+        loadTags();
+    }, [reload]);
 
-    // const loadTags = () => {
-    //     list().then(data => {
-    //         if (data.error) {
-    //             console.log(data.error);
-    //         }
-    //         else {
-    //             setValues({...values, catagories: data})
-    //         }
-    //     })
-    // }
+    const loadTags = () => {
+        listTags().then(data => {
+            if (data.error) {
+                console.log(data.error);
+            }
+            else {
+                setValues({...values, tags: data})
+            }
+        })
+    }
 
-    // const showCategories = () => {
-    //     return catagories.map((c,i) => {
-    //         return (
-    //             <button onDoubleClick={() => deleteConfirm(c.slug)} title="Double Click to delete" key={i} className="btn btn-outline-primary mr-1 ml-1 mt-3">{c.name}</button>
-    //         )
-    //     })
-    // }
+    const showTags = () => {
+        return tags.map((t,i) => {
+            return (
+                <button onDoubleClick={() => deleteConfirm(t.slug)} title="Double Click to delete" key={i} className="btn btn-outline-primary mr-1 ml-1 mt-3">{t.name}</button>
+            )
+        })
+    }
 
     const handleChange = e => {
         setValues({...values, name: e.target.value, error: '', success: '', removed:''});
@@ -59,27 +59,27 @@ const Tag = () => {
         })
     } 
 
-    // const deleteConfirm = slug => {
-    //     let answer = window.confirm('Are you sure to delete this category?');
-    //     if (answer){
-    //         deleteCategory(slug);
-    //     }
-    // }
+    const deleteConfirm = slug => {
+        let answer = window.confirm('Are you sure to delete this category?');
+        if (answer){
+            deleteTag(slug);
+        }
+    }
 
     const mouseMoveHandler = () => {
         setValues({...values, error: '',success:'',success2:false,removed:''});
     }
 
-    // const deleteCategory = slug => {
-    //     // console.log('delete',slug);
-    //     removeCategory(slug, token).then(data => {
-    //         if (data.error){
-    //             console.log(data.error);
-    //         }else{
-    //             setValues({...values, error:'', success:data.message, name: '', removed:!removed, reload:!reload});
-    //         }
-    //     });
-    // };
+    const deleteTag = slug => {
+        // console.log('delete',slug);
+        removeTag(slug, token).then(data => {
+            if (data.error){
+                console.log(data.error);
+            }else{
+                setValues({...values, error:'', success:data.message, name: '', removed:!removed, reload:!reload});
+            }
+        });
+    };
 
     const newTagForm = () => (
         <form onSubmit={clickSubmit}>
@@ -107,7 +107,7 @@ const Tag = () => {
         <div onMouseMove={mouseMoveHandler}>
             {newTagForm()}
             <hr/>
-            {/* {showCategories()} */}
+            {showTags()}
         </div>
         </React.Fragment>
 }
