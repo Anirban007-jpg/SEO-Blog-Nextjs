@@ -29,9 +29,11 @@ const Header = () => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-      <Link href="/">
-            <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
-      </Link> 
+        {!isAuth() && (
+             <Link href="/">
+                <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
+             </Link> 
+        )}
         {isAuth() && isAuth().role === 0 && (
           <>
             <Link href="/user">

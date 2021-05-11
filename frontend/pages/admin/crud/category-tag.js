@@ -1,5 +1,5 @@
-import Layout from '../../components/Layout';
-import { isAuth } from '../../actions/auth';
+import Layout from '../../../components/Layout';
+import { isAuth } from '../../../actions/auth';
 import router from 'next/router';
 import Link from 'next/link';
 
@@ -16,19 +16,13 @@ const AdminIndex = () => {
                 <div className="container-fluid">
                     <div className="row mr-5 ml-5">
                         <div className="col-md-12 pt-5 pb-5">
-                            <h2>Admin Dashboard</h2>
+                            <h2>Create Categories and tags</h2>
                         </div>
                         <div className="col-md-4">
-                            <ul className="list-group">
-                                <li className="list-group-item">
-                                    <Link href="/admin/crud/category-tag">
-                                        <a>Create Category</a>
-                                    </Link>
-                                </li>
-                            </ul>
+                            <p>Categories</p>
                         </div>
                         <div className="col-md-8">
-                            right
+                            <p>Tags</p>
                         </div>
                     </div>                
                 </div>

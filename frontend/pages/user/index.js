@@ -9,9 +9,9 @@ const UserIndex = () => {
         // Router.push('/signin');
     // }
 
-    if (isAuth().role === 1){
+    if (isAuth() && isAuth().role === 1){
         Router.push('/admin');
-    } else if (isAuth().role === 2){
+    } else if (isAuth() && isAuth().role === 2){
         Router.push('/super-admin');
     }
     

@@ -5,9 +5,9 @@ import Layout from "../../components/Layout";
   
 const SuperAdminIndex = () => {
 
-    if (isAuth().role === 0){
+    if (isAuth() && isAuth().role === 0){
         Router.push('/user');
-    } else if (isAuth().role === 1){
+    } else if (isAuth() && isAuth().role === 1){
         Router.push('/admin');
     }
 
