@@ -1,3 +1,4 @@
+import { Router } from "next/router";
 import { isAuth } from "../../actions/auth";
 import Layout from "../../components/Layout";
 
@@ -5,9 +6,9 @@ import Layout from "../../components/Layout";
 const SuperAdminIndex = () => {
 
     if (isAuth().role === 0){
-        router.push('/user');
+        Router.push('/user');
     } else if (isAuth().role === 1){
-        router.push('/admin');
+        Router.push('/admin');
     }
 
     return (

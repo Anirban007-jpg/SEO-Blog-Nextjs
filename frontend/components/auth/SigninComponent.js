@@ -39,7 +39,7 @@ const SigninComponent = () => {
                     if (isAuth() && isAuth().role === 0){
                         Router.push('/user');
                     } else if (isAuth() && isAuth().role === 1){
-                        Router.push('/user');
+                        Router.push('/admin');
                     } else if (isAuth() && isAuth().role === 2){
                         Router.push('/super-admin');
                     }

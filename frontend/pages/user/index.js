@@ -2,7 +2,6 @@ import { isAuth } from '../../actions/auth';
 import Layout from '../../components/Layout';
 import Private from '../../components/auth/Private'
 import Router  from 'next/router';
-import Cookies from 'js-cookie';
 
 const UserIndex = () => {
     
@@ -11,9 +10,9 @@ const UserIndex = () => {
     // }
 
     if (isAuth().role === 1){
-        router.push('/admin');
+        Router.push('/admin');
     } else if (isAuth().role === 2){
-        router.push('/super-admin');
+        Router.push('/super-admin');
     }
     
     return (
