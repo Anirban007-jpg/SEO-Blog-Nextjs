@@ -23,14 +23,33 @@ const Header = () => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-          <Link href="/">
-            <NavLink className="font-weight-bold">{API_NAME}</NavLink>
-          </Link> 
+        {isAuth() && isAuth().role === 0 && (
+          <>
+            <Link href="/user">
+            <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
+            </Link> 
+          </>
+        )}
+        {isAuth() && isAuth().role === 1 && (
+          <>
+            <Link href="/admin">
+            <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
+            </Link> 
+          </>
+        )}
+        {isAuth() && isAuth().role === 2 && (
+          <>
+            <Link href="/super-admin">
+            <NavLink style={{cursor: 'pointer'}} className="font-weight-bold">{API_NAME}</NavLink>
+            </Link> 
+          </>
+        )}
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
           {!isAuth() && (
             <>
+            
                 <NavItem>
                  <Link href="/signin">
                     <NavLink  style={{cursor: 'pointer'}}>
@@ -53,6 +72,15 @@ const Header = () => {
           )}
             {isAuth() && ( 
                 <>
+                  <NavItem style={{float: "left"}}>
+                    <Link href="/">
+                        <NavLink  style={{cursor: 'pointer'}}>
+                          <strong>
+                              Home
+                          </strong>
+                        </NavLink>
+                    </Link>
+                    </NavItem>
                   <NavItem>
                       <NavLink onClick={() => signout(() => Router.push('/signin'))} style={{cursor: 'pointer'}}>
                         <strong>
