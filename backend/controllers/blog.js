@@ -5,7 +5,8 @@ const f = require('formidable');
 const fs = require('fs');
 const s = require('slugify');
 const sh = require('string-strip-html');
-const _ = require('lodash')
+const _ = require('lodash');
+const { smartTrim } = require('../helpers/blog');
 
 
 exports.create = (req,res) => {
@@ -49,6 +50,7 @@ exports.create = (req,res) => {
         let blog = new Blog();
         blog.title = title;
         blog.body = body;
+        blog.excerpt = smartTrim(body, 32, ' ', ' ...');
         blog.slug = s(title).toLowerCase();
         blog.mtitle = `${title} | ${process.env.APP_NAME}`
         blog.mdescription = sh(body.substring(0,160));
