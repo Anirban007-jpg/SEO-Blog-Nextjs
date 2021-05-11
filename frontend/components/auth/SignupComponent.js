@@ -50,7 +50,7 @@ const SignupComponent = () => {
 
     }
 
-    const showLoaing = () => loading ? <div className="Jumbotron">Loading..</div> : '';
+    const showLoaing = () => loading ? <h1 className="jumbotron text-center">Loading..</h1> : '';
     const showError = () => error ? <div className="alert alert-danger">{error}</div> : '';
     const showMessage = () => message ? <div className="alert alert-success">{message}</div> : '';
 

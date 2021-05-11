@@ -66,7 +66,7 @@ exports.Delete = (req,res) => {
         }
 
         res.json({
-            message: "Category deleted successfully"
+            message: `${cat.name} deleted successfully`
         });
     })
 }

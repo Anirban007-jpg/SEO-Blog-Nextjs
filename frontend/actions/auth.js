@@ -66,6 +66,8 @@ export const removeCookie = key => {
 export const getCookie = key => {
     if (process.browser) {
         return cookie.get(key);
+    }else {
+        return false;
     }
 };
 // localstorage
