@@ -1,10 +1,18 @@
 import Layout from '../../components/Layout';
-import { isAuth } from '../../actions/auth';
-import router from 'next/router';
+import { getCookie, isAuth } from '../../actions/auth';
+import router, { Router } from 'next/router';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 const AdminIndex = () => {
-    
+
+    useEffect(() => {
+        if (!isAuth()){
+            router.replace('/');
+        }
+    })
+  
     if (isAuth() && isAuth().role === 0){
         router.push('/user');
     } else if (isAuth() && isAuth().role === 2){

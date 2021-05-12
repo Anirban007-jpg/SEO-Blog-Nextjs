@@ -58,9 +58,20 @@ const Header = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+          <NavItem>
+                 <Link href="/blogs">
+                    <NavLink  style={{cursor: 'pointer'}}>
+                       <strong>
+                          Blogs
+                       </strong>
+                    </NavLink>
+                 </Link>
+              </NavItem>
+          
           {!isAuth() && (
             <>
             
+                
                 <NavItem>
                  <Link href="/signin">
                     <NavLink  style={{cursor: 'pointer'}}>

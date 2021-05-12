@@ -2,9 +2,16 @@ import Layout from '../../../components/Layout';
 import { isAuth } from '../../../actions/auth';
 import router from 'next/router';
 import BlogCreate from '../../../components/crud/BlogCreate';
+import { useEffect } from 'react';
 
 const AdminIndex = () => {
-    
+
+    useEffect(() => {
+        if (!isAuth()){
+            router.replace('/');
+        }
+    })
+     
     if (isAuth() && isAuth().role === 0){
         router.push('/user');
     } else if (isAuth() && isAuth().role === 2){

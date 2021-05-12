@@ -4,9 +4,16 @@ import router from 'next/router';
 import Link from 'next/link';
 import Category from '../../../components/crud/Category';
 import Tag from '../../../components/crud/Tag';
+import { useEffect } from 'react';
 
 const AdminIndex = () => {
     
+    useEffect(() => {
+        if (!isAuth()){
+            router.replace('/');
+        }
+    })
+
     if (isAuth() && isAuth().role === 0){
         router.push('/user');
     } else if (isAuth() && isAuth().role === 2){
