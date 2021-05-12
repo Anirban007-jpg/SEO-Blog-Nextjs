@@ -163,15 +163,10 @@ const BlogCreate = ({router}) => {
         return (
             <form onSubmit={publishBlog}>
                 <div className="form-group" noValidate>
-                    <label className="text-muted">Title</label>
-                    <br />
-                    <textarea row="2" type="text" className="form-control" onChange={handleChange('title')} value={title} />
+                   <textarea row="2" type="text" className="form-control" placeholder="Type your title here..." onChange={handleChange('title')} value={title} />
                 </div>
                 <div className="form-group" noValidate>
-                    <label className="text-muted">Body</label>
-                    <br />
-                    {/* <textarea row="2" type="text" className="form-control" onChange={handleChange('title')} value={title} /> */}
-                    <Quill value={body} modules={BlogCreate.modules} formats={BlogCreate.formats} placeholder="Type Something here..." onChange={handleBody} />
+                    <Quill  value={body} modules={BlogCreate.modules} formats={BlogCreate.formats} placeholder="Type your content here..." onChange={handleBody} />
                 </div>
                 <div>
                     <button type="submit" className="btn btn-primary">Publish Blog</button>
@@ -180,12 +175,36 @@ const BlogCreate = ({router}) => {
         )
     }
 
+    // <div>
+    //                     {isAuth() && isAuth().role === 1 && (
+    //                         <>
+    //                             <h5>Create Category & Tag</h5>
+    //                             <Link href="/admin/crud/category-tag">
+    //                                 <a>
+    //                                     Manage Category and Tags 
+    //                                 </a>
+    //                             </Link>
+    //                         </>
+    //                     )}
+                        
+    //                 </div>
+
+    const showError = () => error ? <div className="alert alert-danger">{error}</div> : '';
+    const showMessage = () => success ? <div className="alert alert-success">{success}</div> : '';
+
+
     return (
-        <div className="container-fluid">
+        <div className="container-fluid pb-5">
+            
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-8" style={{borderRight: '1px solid black'}}>
                     {createBlogForm()}
+                    <div className="pt-3">
+                        {showError()}
+                        {showMessage()}
+                    </div>
                 </div>
+                
                 <div className="col-md-4">
                     <div className="form-group pb-2">
                         <h5>Featured Image</h5>
@@ -208,6 +227,14 @@ const BlogCreate = ({router}) => {
                         <ul style={{maxHeight: '200px', overflowY: 'scroll'}}>{showTags()}</ul>
                     </div>
                     <hr/>
+                    <div>
+                        <h5>Create Category & Tag</h5>
+                            <Link href="/admin/crud/category-tag">
+                                <a>
+                                    Manage Category and Tags 
+                                </a>
+                            </Link>
+                    </div>
 
                 </div>
             </div>

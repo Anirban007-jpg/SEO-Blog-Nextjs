@@ -2,3 +2,7 @@
     height: 15px !important;
     color: red;
 }
+
+.ql-editor {
+    min-height: 300px;
+}
