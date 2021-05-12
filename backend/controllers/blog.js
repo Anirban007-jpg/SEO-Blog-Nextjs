@@ -252,10 +252,26 @@ exports.updateblog = (req,res,next) => {
                         error: err
                     })
                 }
+                // result.photo = undefined;
                 res.json(result);
             })    
     
         })
     })
   
+}
+
+exports.Blogphoto = (req,res) => {
+    const slug =req.params.slug.toLowerCase();
+    Blog.findOne({slug})
+    .select('photo')
+    .exec((err,blog) => {
+        if(err || !blog){
+            return res.status(400).json({
+                error: 'Required blog not found'
+            })
+        }
+        res.set('Content-Type', blog.photo.contentType)
+        return res.send(blog.photo.data);
+    })
 }
