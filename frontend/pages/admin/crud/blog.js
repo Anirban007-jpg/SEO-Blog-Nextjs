@@ -16,10 +16,9 @@ const AdminIndex = () => {
                 <div className="container-fluid">
                     <div className="row mr-5 ml-5">
                         <div className="col-md-12 pt-5 pb-5 text-center">
-                            <h2>Create a new Blog</h2>
+                            <h2>Blog Management</h2>
                         </div>
                         <div className="col-md-12">
-                            <h2>Manage Blog</h2>
                             <BlogCreate />
                         </div>
                     </div>                
