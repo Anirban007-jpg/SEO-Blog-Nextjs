@@ -103,7 +103,7 @@ exports.listBlogs = (req,res,next) => {
     .populate('categories','_id name slug')
     .populate('tags','_id name slug')
     .populate('postedBy','_id name username')
-    .select('_id title slug excerpt categories tags body createdAt updatedAt postedBy')
+    .select('_id title slug excerpt categories tags createdAt updatedAt postedBy')
     .exec((err,data) => { 
             if (err){
                 return res.status(400).json({
@@ -131,7 +131,7 @@ exports.listBlogswithcatandtag = (req,res,next) => {
     .sort({createdAt: -1})
     .skip(skip)
     .limit(limit)
-    .select('_id title slug excerpt categories tags body createdAt updatedAt postedBy')
+    .select('_id title slug excerpt categories tags createdAt updatedAt postedBy')
     .exec((err, data) => {
         if (err){
             return res.status(400).json({
@@ -163,11 +163,34 @@ exports.listBlogswithcatandtag = (req,res,next) => {
 }
 
 exports.readBlog = (req,res,next) => {
-
+    const slug = req.params.slug.toLowerCase();
+    Blog.findOne({slug})
+    .populate('categories','_id name slug')
+    .populate('tags','_id name slug')
+    .populate('postedBy','_id name username')
+    .select('_id title slug excerpt categories mtitle mdescription tags body createdAt updatedAt postedBy')
+    .exec((err,data) => { 
+            if (err){
+                return res.status(400).json({
+                    error: err
+                })
+            }
+            res.json(data);
+        }
+    )
 }
 
 exports.removeblog = (req,res,next) => {
+    const slug = req.params.slug.toLowerCase();
+    Blog.findByIdAndRemove({slug}).exec((err,data) => {
+        if (err){
+            return res.status(400).json({
+                error: err
+            })
+        }
 
+        res.json(`Post with title ${data.title} deleted successfully`);
+    })
 }
 
 
