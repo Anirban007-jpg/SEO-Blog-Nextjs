@@ -43,7 +43,7 @@ const BlogCreate = ({router}) => {
     });
 
     const {error,success,formData,hidePublishButton,sizeError,title} = values;
-    // const token = getCookie('token');
+    const token = getCookie('token');
 
     useEffect(() => {
         setValues({...values, formData: new FormData()});
@@ -73,7 +73,17 @@ const BlogCreate = ({router}) => {
 
     const publishBlog = e => {
         e.preventDefault();
-        console.log('ready to be published');
+        // console.log('ready to be published');
+        createBlog(formData, token).then(data => {
+            if (data.error){
+                setValues({...values,success:'',error:data.error})
+            }else{
+                setValues({...values, title:'',error:'',success:`A new blog with ${data.title} is created`});
+                setBody('');
+                setCategories([]);
+                setTags([]);
+            }
+        })
     }
 
     const handleChange = name =>e => {
@@ -163,6 +173,9 @@ const BlogCreate = ({router}) => {
                     {/* <textarea row="2" type="text" className="form-control" onChange={handleChange('title')} value={title} /> */}
                     <Quill value={body} modules={BlogCreate.modules} formats={BlogCreate.formats} placeholder="Type Something here..." onChange={handleBody} />
                 </div>
+                <div>
+                    <button type="submit" className="btn btn-primary">Publish Blog</button>
+                </div>
             </form>
         )
     }
@@ -174,6 +187,15 @@ const BlogCreate = ({router}) => {
                     {createBlogForm()}
                 </div>
                 <div className="col-md-4">
+                    <div className="form-group pb-2">
+                        <h5>Featured Image</h5>
+                        <hr/>
+                        <small className="text-muted">Max size: 1Mb</small><br/>
+                        <label className="btn btn-outline-info">Upload Featured Image
+                            <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
+                        </label> 
+                    </div>
+                    <hr/>
                     <div>
                         <h5>Categories</h5>
                         <hr/>
