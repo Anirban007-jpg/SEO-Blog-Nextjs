@@ -50,7 +50,7 @@ exports.create = (req,res) => {
         let blog = new Blog();
         blog.title = title;
         blog.body = body;
-        blog.excerpt = smartTrim(body, 32, ' ', ' ...');
+        blog.excerpt = smartTrim(body, 150, ' ', ' ...');
         blog.slug = s(title).toLowerCase();
         blog.mtitle = `${title} | ${process.env.APP_NAME}`
         blog.mdescription = sh(body.substring(0,160));
@@ -95,4 +95,39 @@ exports.create = (req,res) => {
         })
 
     })
+}
+
+
+exports.listBlogs = (req,res,next) => {
+    Blog.find({})
+    .populate('categories','_id name slug')
+    .populate('tags','_id name slug')
+    .populate('postedBy','_id name username')
+    .select('_id title slug excerpt categories tags body createdAt updatedAt postedBy')
+    .exec((err,data) => { 
+            if (err){
+                return res.status(400).json({
+                    error: err
+                })
+            }
+            res.json(data);
+        }
+    )
+};
+
+exports.listBlogswithcatandtag = (req,res,next) => {
+
+}
+
+exports.readBlog = (req,res,next) => {
+
+}
+
+exports.removeblog = (req,res,next) => {
+
+}
+
+
+exports.updateblog = (req,res,next) => {
+
 }
