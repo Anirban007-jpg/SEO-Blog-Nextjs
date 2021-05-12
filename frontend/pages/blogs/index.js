@@ -5,7 +5,7 @@ import {listBlogsWithCategoriesAndTags} from '../../actions/blog'
 import { API } from '../../config';
 
 
-const Blogs = () => {
+const Blogs = ({blogs, categories, tags, size}) => {
     return (
             <Layout>
                 <main>
@@ -21,12 +21,27 @@ const Blogs = () => {
                     </div>
                     <div className="container-fluid">
                             <div className="row">
-                                <div className="col-md-12">Show all Blogs</div>
+                                <div className="col-md-12">{JSON.stringify(blogs)}</div>
                             </div>
                     </div>
                 </main>
             </Layout>
     )
+}
+
+Blogs.getInitialProps = () => {
+    return listBlogsWithCategoriesAndTags().then(data => {
+        if (data.error){
+            console.log(data.error);
+        }else{
+            return {
+                blogs: data.blogs,
+                categories: data.categories,
+                tags: data.tags,
+                size: data.size
+            };
+        }
+    })
 }
 
 export default Blogs
