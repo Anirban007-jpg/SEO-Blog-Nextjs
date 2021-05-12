@@ -195,5 +195,67 @@ exports.removeblog = (req,res,next) => {
 
 
 exports.updateblog = (req,res,next) => {
+    const slug =req.params.slug.toLowerCase();
 
+    Blog.findByIdAndUpdate({slug}).exec((err, oldBlog) => {
+        if (err){
+            return res.status(400).json({
+                error: 'Image could not uploaded'
+            })
+        }
+        let form = new f.IncomingForm();
+        form.keepExtensions = true;
+        form.parse(req, (err, fields, files) => {
+            if (err){
+                return res.status(400).json({
+                    error: 'Image could not uploaded'
+                })
+            }
+    
+         
+             
+            let slugBeforeMerge = oldBlog.slug;
+            oldBlog = _.merge(oldBlog, fields);
+            oldBlog.slug = slugBeforeMerge;
+
+            const {body,categories,tags} = fields;
+    
+       
+            if (body){
+                oldBlog.excerpt = smartTrim(body, 200, ' ', ' ....');
+                oldBlog.mdescription = sh.body(body.substring(0,160));         
+            }
+    
+            
+            if (categories){
+                oldBlog.categories = categories.split(',')         
+            }
+
+            
+            if (tags){
+                oldBlog.tags = tags.split(',')         
+            }
+
+            if (files.photo){
+                if (files.photo.size > 10000000){
+                    return res.status(400).json({
+                        error: 'Image should be less than 1Mb in size'
+                    })
+                }
+                oldBlog.photo.data = fs.readFileSync(files.photo.path)
+                oldBlog.photo.contentType = files.photo.type
+            }
+            
+            blog.save((err,result) => {
+                if (err){
+                    return res.status(400).json({
+                        error: err
+                    })
+                }
+                res.json(result);
+            })    
+    
+        })
+    })
+  
 }
