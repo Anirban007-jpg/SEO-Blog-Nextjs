@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import renderHTML from 'react-render-html';
-import { useState, useEffect } from 'react';
+// import renderHTML from 'react-render-html';
+import { useState } from 'react';
 import { listSearch } from '../../actions/blog';
 
-const Search = () => {
+
+const Search = () => 
+{
+
     const [values, setValues] = useState({
         search: undefined,
         results: [],
