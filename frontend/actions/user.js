@@ -16,7 +16,7 @@ export const userPublicProfile = username => {
 };
 
 export const getProfile = token => {
-    return fetch(`${API}/user/profile`, {
+    return fetch(`${API}/profile`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
