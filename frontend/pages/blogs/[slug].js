@@ -86,7 +86,7 @@ const SingleBlog = ({blog, router}) => {
                                 <div className="container">
                                     <h1 className="display-2 pb-3 pt-3 text-center font-weight-bold">{blog.title}</h1>
                                     <p className="lead mt-3 mark">
-                                        Written by {blog.postedBy.name} | {blog.updatedAt == null ? (<>Published on {moment(blog.createdAt).fromNow()}</>): (<>Published on {moment(blog.updatedAt).fromNow()}</>)}
+                                        Written by <Link href={`/profile/${blog.postedBy.username}`}><a>{blog.postedBy.username}</a></Link> | {blog.updatedAt == null ? (<>Published on {moment(blog.createdAt).fromNow()}</>): (<>Published on {moment(blog.updatedAt).fromNow()}</>)}
                                     </p>
                                     <div className="pb-3">
                                         {showBlogCategories(blog)} {" "} || {" "} 

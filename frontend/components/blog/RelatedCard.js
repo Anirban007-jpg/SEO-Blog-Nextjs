@@ -25,8 +25,8 @@ const RelatedCard = ({blog}) => {
                 <div className="card-body">
                     <section>
                         <Link href={`/blogs/${blog.slug}`}>
-                            <a className="mark ml-1 pt-2 pb-2">
-                                Written by {blog.postedBy.username} | {blog.updatedAt == null ? (<>Published on {moment(blog.createdAt).fromNow()}</>): (<>Published on {moment(blog.updatedAt).fromNow()}</>)}
+                            <a className="mark ml-2 pb-2">
+                                Written by <Link href={`/profile/${blog.postedBy.username}`}><a>{blog.postedBy.username}</a></Link> | {blog.updatedAt == null ? (<>Published on {moment(blog.createdAt).fromNow()}</>): (<>Published on {moment(blog.updatedAt).fromNow()}</>)}
                             </a>
                         </Link>
                     </section>
