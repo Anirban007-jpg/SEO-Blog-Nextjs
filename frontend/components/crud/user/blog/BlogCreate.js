@@ -9,7 +9,7 @@ import {listTags} from '../../../../actions/tag';
 
 const Quill = dynamic(() => import('react-quill'), {ssr: false})
 import '../../../../node_modules/react-quill/dist/quill.snow.css';
-import { createUserBlog } from "../../../../actions/blog";
+import { createCustomerBlog } from "../../../../actions/blog";
 
 
 const BlogCreate = ({router}) => {
@@ -75,7 +75,7 @@ const BlogCreate = ({router}) => {
     const publishBlog = e => {
         e.preventDefault();
         // console.log('ready to be published');
-        createUserBlog(formData, token).then(data => {
+        createCustomerBlog(formData, token).then(data => {
             if (data.error){
                 setValues({...values,success:'',error:data.error})
             }else{

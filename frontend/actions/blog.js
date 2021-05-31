@@ -32,6 +32,19 @@ export const createUserBlog = (blog, token) => {
         .catch(err => console.log(err));
 };
 
+export const createCustomerBlog = (blog, token) => {
+    return fetch(`${API}/blog/customer/create`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body : blog
+    })
+        .then(response => {
+            return response.json();
+        })
+}
 
 export const listBlogsWithCategoriesAndTags = (skip,limit) => {
     const data = {

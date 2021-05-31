@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { runValidation } = require('../validators');
-const {requireSignin, adminMiddleware, authMiddleware} = require('../controllers/auth');
+const {requireSignin, adminMiddleware, authMiddleware, customerMiddleware} = require('../controllers/auth');
 const { create, listBlogs, listBlogswithcatandtag, readBlog,updateblog,removeblog, Blogphoto, listRelatedBlogs,createBlog, listSearch } = require('../controllers/blog');
 
 router.post('/blog/create', requireSignin, adminMiddleware, create);
 router.post('/blog/user/create', requireSignin, authMiddleware, createBlog);
+router.post('/blog/customer/create', requireSignin, customerMiddleware, createBlog);
 router.get('/blogs', listBlogs);
 router.post('/blogs-categories-tags', listBlogswithcatandtag);
 router.get('/blog/:slug', readBlog);

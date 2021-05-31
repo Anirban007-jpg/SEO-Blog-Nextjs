@@ -218,7 +218,7 @@ const BlogCreate = ({router}) => {
                     </div>
                     <hr/>
                     <div>
-                        {isAuth() && isAuth().role === 1 && isAuth().role === 2 ? (
+                        {isAuth() && isAuth().role === 1 ? (
                             <>
                                 <h5>Create Category & Tag</h5>
                                 <Link href="/admin/crud/category-tag">

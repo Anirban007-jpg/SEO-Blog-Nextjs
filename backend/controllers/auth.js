@@ -86,15 +86,30 @@ exports.authMiddleware = (req,res,next) => {
       })
      }
 
-     if (user.role !== 0 || user.role === 1 || user.role === 2){
+     req.profile = user;
+     next();
+   })
+}
+
+exports.customerMiddleware = (req,res,next) => {
+  const authUserId = req.auth._id;
+  User.findById({_id: authUserId}).exec((err,user) => {
+    if (err || !user){
+     return res.status(400).json({
+       error: "User already exsists"
+     })
+    }
+
+    if (user.role !== 0 || user.role === 1 || user.role === 2){
       return res.status(400).json({
         error: "Customer Resource ! Access Denied"
       })
     }
 
-     req.profile = user;
-     next();
-   })
+    req.profile = user;
+    next();
+  })
+  
 }
 
 exports.adminMiddleware = (req,res,next) => {
