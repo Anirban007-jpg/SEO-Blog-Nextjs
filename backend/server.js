@@ -13,6 +13,7 @@ const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/category');
 const tagRoutes = require('./routes/tag');
 const blogRoutes = require('./routes/blog');
+const formRoutes = require('./routes/form');
 
 // app
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', tagRoutes);
 app.use('/api', blogRoutes);
+app.use('/api', formRoutes);
 app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError'){
         res.status(401).json({
