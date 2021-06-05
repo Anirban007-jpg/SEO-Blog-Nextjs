@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { emailContactForm } from '../../actions/form';
 
-const ContactForm = () => {
+const ContactForm = ({authorEmail}) => {
     const [values, setValues] = useState({
         usermessage: '',
         name: '',
@@ -20,7 +20,7 @@ const ContactForm = () => {
     const clickSubmit = e => {
         e.preventDefault();
         setValues({ ...values, buttonText: 'Sending...' });
-        emailContactForm({ name, email, usermessage,toemail }).then(data => {
+        emailContactForm({ authorEmail, name, email, usermessage,toemail }).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -70,7 +70,7 @@ const ContactForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label className="lead">Email</label>
+                    <label className="lead">Sender's Email</label>
                     <input
                         type="email"
                         onChange={handleChange('email')}
@@ -79,16 +79,7 @@ const ContactForm = () => {
                         required
                     />
                 </div>
-                 <div className="form-group">
-                    <label className="lead">Sender's Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        value='abanerjee763@gmail.com'
-                        disabled
-                    />
-                </div>
-
+                 
                 <div>
                     <button className="btn btn-primary">{buttonText}</button>
                 </div>

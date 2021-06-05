@@ -6,6 +6,7 @@ import { userPublicProfile } from '../../actions/user';
 import { API } from '../../config';
 import moment from 'moment';
 import { withRouter } from 'next/router';
+import ContactForm from '../../components/form/ContactForm';
 
 const UserProfile = ({router,user,blogs}) => {
 
@@ -69,7 +70,7 @@ const UserProfile = ({router,user,blogs}) => {
                                 <div className="card-body">
                                     <h5 className="card-title bg-primary pt-4 pb-4 pl-4 pr-4 text-white">Message {user.name}</h5>
                                     <br/>
-                                    <p>Contact Form</p>
+                                    <ContactForm authorEmail={user.email} />
                                 </div>
                             </div>
                         </div>
