@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
 import querystring from 'query-string';
+import { handleResponse } from './auth';
 
 export const createBlog = (blog, token) => {
     return fetch(`${API}/blog/create`, {
@@ -59,6 +60,7 @@ export const listBlogsWithCategoriesAndTags = (skip,limit) => {
         body: JSON.stringify(data)
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
@@ -105,6 +107,7 @@ export const removeBlog = (slug, token) => {
         }
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
@@ -120,6 +123,7 @@ export const updateBlog = (blog, token, slug) => {
         body: blog
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
@@ -135,6 +139,7 @@ export const updateBlogbyUser = (blog, slug, token) => {
         body : blog
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
