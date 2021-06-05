@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import renderHTML from 'react-render-html';
 import RelatedCard from '../../components/blog/RelatedCard';
+import DisqusThread from '../../components/DisqusThread';
 
 const SingleBlog = ({blog, router}) => {
 
@@ -70,6 +71,14 @@ const SingleBlog = ({blog, router}) => {
         ))
     }
 
+    const showComments = () => {
+        return (
+            <div>
+                <DisqusThread id={blog.id} title={blog.title} path={`/blog/${blog.slug}`} />
+            </div>
+        )
+    }
+
     return (
         <React.Fragment>
             {head()}
@@ -108,7 +117,7 @@ const SingleBlog = ({blog, router}) => {
                                 </div>
                             </div><hr/>
                             <div className="container pb-5">
-                                <p>show comments</p>
+                               {showComments()}
                             </div>   
                             <div className="container pb-5">
                                 <Link href="/blogs">

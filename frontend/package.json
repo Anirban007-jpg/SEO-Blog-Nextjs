@@ -17,6 +17,7 @@
     "moment": "^2.29.1",
     "next": "^9.0.5",
     "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
     "query-string": "^7.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
