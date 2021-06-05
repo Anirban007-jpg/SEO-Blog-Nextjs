@@ -68,6 +68,15 @@ const Header = () => {
                     </NavLink>
                  </Link>
               </NavItem>
+              <NavItem>
+                <Link href="/contact">
+                  <NavLink style={{cursor: 'pointer'}}>
+                      <strong>
+                        Contact
+                      </strong>  
+                    </NavLink>
+                </Link>
+              </NavItem>
           
           {!isAuth() && (
             <>
