@@ -8,7 +8,7 @@ exports.contactFormValidator = [
     check('email')
         .isEmail()
         .withMessage('Must be valid email address'),
-    check('message')
+    check('usermessage')
         .not()
         .isEmpty()
         .isLength({ min: 20 })
