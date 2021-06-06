@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { authenticate, isAuth, signin } from "../../actions/auth";
 import Router from 'next/router';
+import Link from "next/Link";
 
 const SigninComponent = () => {
 
@@ -71,7 +72,10 @@ const SigninComponent = () => {
 
                 <div className="pd-3">
                     <button className="btn btn-success">LOGIN</button>
-                </div><br/>
+                </div><hr/>
+                <div className="md-3 float-right">
+                    <strong><Link href='/auth/forgot'>Forgot Password?</Link></strong>
+                </div><br/><br/>
             </form>
         )
     }

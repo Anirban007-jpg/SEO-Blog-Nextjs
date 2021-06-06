@@ -8,6 +8,7 @@ const sgMail = require('@sendgrid/mail'); // SENDGRID_API_KEY
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const nm = require('nodemailer');
 require('dotenv').config()
+const _ = require('lodash');
 
 
 
@@ -205,7 +206,7 @@ exports.forgotPassword = (req, res) => {
               }
       
               res.status(200).json({
-                  success: true
+                  message: "password reset link sent succesfully!"
               })
                 })
           }
@@ -239,7 +240,7 @@ exports.resetPassword = (req, res) => {
               user.save((err, result) => {
                   if (err) {
                       return res.status(400).json({
-                          error: errorHandler(err)
+                          error: err
                       });
                   }
                   res.json({
