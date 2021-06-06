@@ -11,6 +11,61 @@ require('dotenv').config()
 const _ = require('lodash');
 
 
+exports.preSignup = (req, res) => {
+
+  let username = sid.generate();
+  let profile = `${process.env.CLIENT_URL}/profile/${username}`;
+  const { name,email,about,address,mobile_no,password,role } = req.body;
+  User.findOne({ email: email.toLowerCase() }, (err, user) => {
+      if (user) {
+          return res.status(400).json({
+              error: 'Email is taken'
+          });
+      }
+      const token = jwt.sign({name,email,about,address,mobile_no,password,username,profile,role }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '10m' });
+
+      let transporter = nm.createTransport({
+        port: 465,
+        service: "gmail",
+        auth: {
+            user: 'abanerjee763@gmail.com',
+            pass: '03432582357',
+        },
+        secure: false
+    
+      })
+
+      var message = {
+          from: 'abanerjee763@gmail.com',
+          to: email,
+          subject: `Account activation link`,
+          html: `
+          <p>Please use the following link to activate your acccount:</p>
+          <p>${process.env.CLIENT_URL}/auth/account/activate/${token}</p>
+          <hr />
+          <p>This email may contain sensetive information</p>
+          <p>https://seoblog.com</p>
+      `
+      };
+
+      transporter.sendMail(message, (err,success) => {
+        if(err){
+            console.log(err);
+            res.status(400).json({
+                error: err
+            });
+            
+        }
+
+        res.status(200).json({
+           message: `Email has been sent to ${email}. Follow the instructions to activate your account.`
+        })
+    })
+
+  
+  });
+};
+
 
 exports.signup = (req,res) => {
     User.findOne({email: req.body.email}).exec((err,user) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { isAuth, signup } from "../../actions/auth";
 import Router from 'next/router';
+import { preSignup } from "../../actions/auth";
 
 const SignupComponent = () => {
 
@@ -38,7 +39,7 @@ const SignupComponent = () => {
         e.preventDefault();
         setValues({...values, loading: true, error:''});
         const user = {name,email,address,length,about,mobile_no,password,role};
-        signup(user)
+        preSignup(user)
         .then(data =>{
             if(data.error){
                 setValues({...values, error: data.error, loading:false});
