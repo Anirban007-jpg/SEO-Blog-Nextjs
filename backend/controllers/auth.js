@@ -92,6 +92,38 @@ exports.signup = (req,res) => {
         });
       });
     })
+
+    //    const token = req.body.token;
+    // if (token) {
+    //     jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, function(err, decoded) {
+    //         if (err) {
+    //             return res.status(401).json({
+    //                 error: 'Expired link. Signup again'
+    //             });
+    //         }
+
+    //         const {name, email, password, profile, username, about, address, mobile_no, role} = jwt.decode(token);
+
+    //         let username = shortId.generate();
+    //         let profile = `${process.env.CLIENT_URL}/profile/${username}`;
+
+    //         const user = new User({ name, email, password, profile, username, about, address, mobile_no, role });
+    //         user.save((err, user) => {
+    //             if (err) {
+    //                 return res.status(401).json({
+    //                     error: err
+    //                 });
+    //             }
+    //             return res.json({
+    //                 message: 'Singup success! Please signin'
+    //             });
+    //         });
+    //     });
+    // } else {
+    //     return res.json({
+    //         message: 'Something went wrong. Try again'
+    //     });
+    // }
 }
 
 exports.signin = (req,res) => {

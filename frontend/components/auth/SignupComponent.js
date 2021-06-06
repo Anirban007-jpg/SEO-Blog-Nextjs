@@ -39,7 +39,7 @@ const SignupComponent = () => {
         e.preventDefault();
         setValues({...values, loading: true, error:''});
         const user = {name,email,address,length,about,mobile_no,password,role};
-        preSignup(user)
+        signup(user)
         .then(data =>{
             if(data.error){
                 setValues({...values, error: data.error, loading:false});

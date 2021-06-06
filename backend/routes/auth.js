@@ -6,7 +6,7 @@ const { userSignupValidator, userSigninValidator,     forgotPasswordValidator,
     resetPasswordValidator } = require('../validators/auth');
 
 
-router.post('/pre-signup', userSignupValidator, runValidation, preSignup);
+// router.post('/pre-signup', userSignupValidator, runValidation, preSignup);
 router.post('/signup', userSignupValidator, runValidation, signup);
 router.post('/signin', userSigninValidator, runValidation, signin);
 router.post('/signout', signout);
